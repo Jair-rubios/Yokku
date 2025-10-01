@@ -1,0 +1,56 @@
+   .wishlist-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .wishlist-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .wishlist-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    position: relative;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card h3 { margin: 10px 0 5px; }
+  .card p { font-size: 14px; color: #555; }
+  .precio { font-weight: bold; color: #2a7; margin: 10px 0; }
+
+  .delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: #ff4d4d;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+  }
+
+  .delete-btn:hover {
+    background: #ff1a1a;
+  }

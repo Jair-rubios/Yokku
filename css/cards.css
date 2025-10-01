@@ -1,0 +1,71 @@
+  .productos-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 columnas en PC */
+      gap: 20px;
+      padding: 20px;
+      max-width: 1800px;
+      margin: auto;
+      
+    }
+
+    /* Responsividad */
+    @media (max-width: 1024px) {
+      .productos-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
+      }
+    }
+
+    @media (max-width: 600px) {
+      .productos-container {
+        grid-template-columns: repeat(1, 1fr); /* 1 columna en celular */
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .precio {
+      font-weight: bold;
+      color: #2a7;
+      margin: 10px 0;
+    }
+
+    .wishlist-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #aaa;
+      transition: color 0.3s;
+    }
+
+    .wishlist-btn:hover {
+      color: red;
+    }

@@ -1,0 +1,180 @@
+
+    /* ====== ESTILOS DEL NAVBAR ====== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar-left a,
+.navbar-right a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.navbar-left a:hover,
+.navbar-right a:hover {
+    color: #00b7ff;
+}
+
+.navbar-center .logo {
+    height: 80px;
+    object-fit: contain;
+}
+
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+
+/* Asegura alineación en el navbar */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Avatar redondo y recortado */
+.menu-perfil {
+  position: relative;
+  display: inline-block;
+  line-height: 0; /* evita espacios raros alrededor del avatar */
+}
+
+.menu-perfil img.perfil {
+  width: 42px;            /* ajusta al tamaño que quieras */
+  height: 42px;           /* debe ser igual al width */
+  aspect-ratio: 1 / 1;    /* mantiene cuadrado si el navegador lo soporta */
+  border-radius: 50%;     /* hace el círculo */
+  object-fit: cover;      /* recorta para llenar sin deformar */
+  object-position: center;
+  display: block;
+  border: 2px solid #ddd;
+  transition: border-color .2s ease;
+}
+
+/* Si algún estilo global te lo está sobreescribiendo,
+   descomenta las dos líneas siguientes */
+ .menu-perfil img.perfil { width: 42px !important; height: 42px !important; }
+
+.menu-perfil img.perfil:hover {
+  border-color: #f31c1c;
+}
+
+/* Submenú */
+.menu-perfil .submenu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: #fff;
+  border: 1px solid #ddd;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  width: 190px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  border-radius: 10px;
+  z-index: 999;
+}
+
+.menu-perfil.active .submenu { display: block; }
+
+.submenu li { margin: 6px 0; }
+.submenu li a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  padding: 6px 4px;
+}
+.submenu li a:hover { color: #ff6600; }
+
+
+/* Estilos para pantallas móviles */
+@media screen and (max-width: 768px) {
+    .navbar-left {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #fff;
+        width: 100%;
+        border-top: 1px solid #ddd;
+    }
+
+    .mobile-nav-links a {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+}
+
+/* ====== PERFIL Y SUBMENÚ ====== */
+.menu-perfil {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-perfil img.perfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    transition: 0.2s ease;
+}
+
+.menu-perfil img.perfil:hover {
+    border-color: #ff6600;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    width: 180px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.submenu li {
+    margin: 8px 0;
+}
+
+.submenu li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: block;
+}
+
+.submenu li a:hover {
+    color: #ff0000c7;
+}
+
+.menu-perfil.active .submenu {
+    display: block;
+}
