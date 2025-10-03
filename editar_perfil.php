@@ -2,116 +2,169 @@
 session_start();
 include "conexion.php";
 
-// Verificar sesión
+// Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
-    exit;
+    exit();
 }
 
-$id = $_SESSION['usuario']['id'];
-$mensaje = ""; // guardará el mensaje a mostrar en el popup
+$idUsuario = $_SESSION['usuario']['id'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nombre           = trim($_POST['nombre']);
-    $apellido_paterno = trim($_POST['apellido_paterno']);
-    $apellido_materno = trim($_POST['apellido_materno']);
-    $numero_celular   = trim($_POST['numero_celular']);
+// Consultar datos actuales del usuario
+$sql = "SELECT Nombre, Celular, Correo, Foto_Imagen FROM Usuarios WHERE ID_Usuario = $idUsuario";
+$resultado = $conn->query($sql);
 
-    // Validar que no estén vacíos
-    if ($nombre == "" || $apellido_paterno == "" || $numero_celular == "") {
-        $mensaje = "Termine de rellenar sus nuevos datos por favor";
+if ($resultado && $resultado->num_rows === 1) {
+    $usuario = $resultado->fetch_assoc();
+} else {
+    echo "⚠️ Error: Usuario no encontrado.";
+    exit();
+}
+
+// Actualizar datos si se envió el formulario
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nombre  = $conn->real_escape_string($_POST['nombre']);
+    $celular = $conn->real_escape_string($_POST['celular']);
+    $correo  = $conn->real_escape_string($_POST['correo']);
+
+    $nuevaContrasena = $_POST['contrasena'] ?? "";
+    $updatePassword = "";
+    if (!empty($nuevaContrasena)) {
+        $hash = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+        $updatePassword = ", Contrasena = '$hash'";
+    }
+
+    // Manejo de nueva imagen si se sube
+    $updateFoto = "";
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $foto = $_FILES['foto'];
+        $nombreFoto = uniqid() . "_" . basename($foto['name']);
+        $rutaDestino = "uploads/" . $nombreFoto;
+
+        if (!is_dir("uploads")) {
+            mkdir("uploads", 0777, true);
+        }
+
+        if (move_uploaded_file($foto['tmp_name'], $rutaDestino)) {
+            // Borrar la foto anterior si existe
+            if (!empty($usuario['Foto_Imagen']) && file_exists("uploads/" . $usuario['Foto_Imagen'])) {
+                unlink("uploads/" . $usuario['Foto_Imagen']);
+            }
+            $updateFoto = ", Foto_Imagen = '$nombreFoto'";
+        }
+    }
+
+    // Actualizar en la base de datos
+    $sqlUpdate = "UPDATE Usuarios 
+                  SET Nombre = '$nombre', Celular = '$celular', Correo = '$correo' 
+                      $updatePassword
+                      $updateFoto
+                  WHERE ID_Usuario = $idUsuario";
+
+    if ($conn->query($sqlUpdate) === TRUE) {
+        // Actualizar la sesión para reflejar los cambios en el nav
+        $_SESSION['usuario']['nombre'] = $nombre;
+        $_SESSION['usuario']['correo'] = $correo;
+
+        if (!empty($updateFoto)) {
+            // Obtener el nuevo nombre de la foto (último insertado)
+            if (isset($nombreFoto)) {
+                $_SESSION['usuario']['foto_perfil'] = $nombreFoto;
+            }
+        }
+
+        echo "<script>alert('✅ Perfil actualizado correctamente'); window.location='editar_perfil.php';</script>";
+        exit();
     } else {
-        // Foto de perfil
-        $foto = $_SESSION['usuario']['foto_perfil'];
-        if (!empty($_FILES['foto_perfil']['name'])) {
-            $foto = time() . "_" . basename($_FILES["foto_perfil"]["name"]);
-            move_uploaded_file($_FILES["foto_perfil"]["tmp_name"], "uploads/" . $foto);
-        }
-
-        $sql = "UPDATE usuarios 
-                SET nombre='$nombre',
-                    apellido_paterno='$apellido_paterno',
-                    apellido_materno='$apellido_materno',
-                    numero_celular='$numero_celular',
-                    foto_perfil='$foto'
-                WHERE id=$id";
-
-        if ($conn->query($sql)) {
-            // actualizar datos en sesión
-            $_SESSION['usuario']['nombre']           = $nombre;
-            $_SESSION['usuario']['apellido_paterno'] = $apellido_paterno;
-            $_SESSION['usuario']['apellido_materno'] = $apellido_materno;
-            $_SESSION['usuario']['numero_celular']   = $numero_celular;
-            $_SESSION['usuario']['foto_perfil']      = $foto;
-
-            $mensaje = "Se ha logrado cambiar los datos exitosamente";
-        } else {
-            $mensaje = "Error al actualizar: " . $conn->error;
-        }
+        echo "❌ Error al actualizar: " . $conn->error;
     }
 }
 
-// Traer datos actuales
-$sql = "SELECT * FROM usuarios WHERE id=$id LIMIT 1";
-$result = $conn->query($sql);
-$usuario = $result->fetch_assoc();
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Editar Perfil</title>
-    <link rel="stylesheet" href="css/universal.css">
     <style>
-        body { font-family: Arial, sans-serif; margin: 30px; }
-        form { max-width: 400px; margin: auto; display: flex; flex-direction: column; gap: 12px; }
-        input, button { padding: 10px; font-size: 14px; }
-        img { border-radius: 50%; width: 100px; height: 100px; object-fit: cover; display: block; margin: 10px auto; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 320px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .foto-perfil {
+            display: block;
+            margin: 0 auto 15px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ccc;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
-    
+
+<form action="editar_perfil.php" method="POST" enctype="multipart/form-data">
     <h2>Editar Perfil</h2>
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        <label>Nombre</label>
-        <input type="text" name="nombre" value="<?php echo $usuario['nombre']; ?>" required>
+    <img src="uploads/<?php echo htmlspecialchars($usuario['Foto_Imagen']); ?>" 
+         alt="Foto de perfil" class="foto-perfil">
 
-        <label>Apellido Paterno</label>
-        <input type="text" name="apellido_paterno" value="<?php echo $usuario['apellido_paterno']; ?>" required>
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="<?php echo htmlspecialchars($usuario['Nombre']); ?>" required>
 
-        <label>Apellido Materno</label>
-        <input type="text" name="apellido_materno" value="<?php echo $usuario['apellido_materno']; ?>">
+    <label>Celular:</label>
+    <input type="tel" name="celular" value="<?php echo htmlspecialchars($usuario['Celular']); ?>">
 
-        <label>Número de Celular</label>
-        <input type="text" name="numero_celular" value="<?php echo $usuario['numero_celular']; ?>" required>
+    <label>Correo electrónico:</label>
+    <input type="email" name="correo" value="<?php echo htmlspecialchars($usuario['Correo']); ?>" required>
 
-        <label>Foto de perfil actual:</label>
-        <img src="uploads/<?php echo $usuario['foto_perfil']; ?>" alt="Foto de perfil">
+    <label>Nueva contraseña (opcional):</label>
+    <input type="password" name="contrasena" placeholder="Dejar vacío si no se cambia">
 
-        <label>Nueva foto de perfil (opcional)</label>
-        <input type="file" name="foto_perfil">
+    <label>Foto de perfil (opcional):</label>
+    <input type="file" name="foto" accept="image/*">
 
-        <button type="submit">Guardar cambios</button>
-    </form>
+    <button type="submit">Actualizar Perfil</button>
+</form>
 
-    <?php if ($mensaje != ""): ?>
-    <script>
-        alert("<?php echo $mensaje; ?>");
-    </script>
-     <script>
-        const mensaje = "<?php echo htmlspecialchars($mensaje); ?>";
-        alert(mensaje);
-
-        // Si el mensaje indica éxito, redirige después de 6 segundos
-        if (mensaje.includes("exitosamente")) {
-            setTimeout(() => {
-                window.location.href = "index.php";
-            }, 4000); 
-        }
-    </script>
-    <?php endif; ?>
 </body>
 </html>
+
 
 
