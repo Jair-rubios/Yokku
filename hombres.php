@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/universal.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/cards.css">
+  
+  
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,9 +22,9 @@
   <?php include 'nav.php';  ?>
   <h1>Productos</h1>
   <div class="productos-container" id="productos"></div>
-
-   <script src="JS/cards_hombre.js"></script>
    
+   <script src="JS/cards_hombre.js"></script>
+   <script src="JS/carrusel.js"></script>
   </script>
 </body>
 </html>

@@ -37,25 +37,33 @@ $productos = [
     [
         "id" => 5,
         "imagen" => "imagenes/shooky.webp",
-        "nombre" => "Tenis Deportivos",
+        "nombre" => "SHOOKY",
         "coleccion" => "Sport",
         "precio" => 999.99,
         "descripcion" => "Tenis cómodos y ligeros para correr."
     ]
     ,
     [
-        "id" => 5,
+        "id" => 6,
         "imagen" => "imagenes/spider.webp",
-        "nombre" => "Tenis Deportivos",
+        "nombre" => "Spiderman",
         "coleccion" => "Sport",
         "precio" => 999.99,
         "descripcion" => "Tenis cómodos y ligeros para correr."
     ],
     [
-        "id" => 5,
+        "id" => 7,
         "imagen" => "imagenes/pibesierra.webp",
-        "nombre" => "Tenis Deportivos",
+        "nombre" => "ChainSawmAN",
         "coleccion" => "Sport",
+        "precio" => 999.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 8,
+        "imagen" => "imagenes/slinky.png",
+        "nombre" => "Slinky Toy",
+        "coleccion" => "Toy Story",
         "precio" => 999.99,
         "descripcion" => "Tenis cómodos y ligeros para correr."
     ]

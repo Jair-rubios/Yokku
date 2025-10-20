@@ -3,7 +3,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 $productos = [
     [
-        "id" => 1,
+        "id" => 11,
         "imagen" => "hombre/luffy.webp",
         "nombre" => "Pasele Joven",
         "coleccion" => "Verano 2025",
@@ -11,7 +11,7 @@ $productos = [
         "descripcion" => "Camisa ligera de algodón con estampado tropical."
     ],
     [
-        "id" => 2,
+        "id" => 12,
         "imagen" => "hombre/magneto.webp",
         "nombre" => "Jeans Slim Fit",
         "coleccion" => "Clásicos",
@@ -19,7 +19,7 @@ $productos = [
         "descripcion" => "Jeans denim azul oscuro con corte ajustado."
     ],
     [
-        "id" => 3,
+        "id" => 13,
         "imagen" => "hombre/super.webp",
         "nombre" => " 4 de Asada",
         "coleccion" => "Edición Limitada",
@@ -27,7 +27,7 @@ $productos = [
         "descripcion" => "Chaqueta de cuero genuino estilo biker."
     ],
     [
-        "id" => 4,
+        "id" => 14,
         "imagen" => "hombre/superr.webp",
         "nombre" => "El rey Taquero",
         "coleccion" => "Sport",
@@ -35,7 +35,7 @@ $productos = [
         "descripcion" => "Tenis cómodos y ligeros para correr."
     ],
     [
-        "id" => 5,
+        "id" => 15,
         "imagen" => "hombre/vegeta.webp",
         "nombre" => "Tenis Deportivos",
         "coleccion" => "Sport",
@@ -44,7 +44,7 @@ $productos = [
     ]
     ,
     [
-        "id" => 5,
+        "id" => 16,
         "imagen" => "hombre/naruto.jpg",
         "nombre" => "Tenis Deportivos",
         "coleccion" => "Sport",
@@ -52,7 +52,7 @@ $productos = [
         "descripcion" => "Tenis cómodos y ligeros para correr."
     ],
     [
-        "id" => 5,
+        "id" => 17,
         "imagen" => "hombre/tanjiro.jpg",
         "nombre" => "Tenis Deportivos",
         "coleccion" => "Sport",
