@@ -1,13 +1,46 @@
 async function cargarWishlist() {
-  const res = await fetch("api_productos.php");
-  const productos = await res.json();
+  const contenedor = document.getElementById("wishlist");
+  contenedor.innerHTML = "<p>Cargando tu lista de deseos...</p>";
+
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
-  const contenedor = document.getElementById("wishlist");
+  if (wishlist.length === 0) {
+    contenedor.innerHTML = "<p>No tienes productos en tu lista de deseos.</p>";
+    return;
+  }
+
+  // 👇 APIs a consultar
+  const apis = [
+    { prefijo: "", url: "api_productos.php" },
+    { prefijo: "M", url: "api_mujer.php" },
+    { prefijo: "H", url: "api_hombres.php" },
+    { prefijo: "N", url: "api_niño.php" },
+    { prefijo: "NA", url: "api_niñas.php" }
+  ];
+
+  let todosLosProductos = [];
+
+  // 🔄 Cargar todas las APIs
+  for (const { prefijo, url } of apis) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Error al cargar " + url);
+      const productos = await res.json();
+      productos.forEach(p => (p.prefijo = prefijo)); // Marca el origen
+      todosLosProductos = todosLosProductos.concat(productos);
+    } catch (err) {
+      console.warn("No se pudo cargar:", url);
+    }
+  }
+
   contenedor.innerHTML = "";
 
-  productos.forEach(prod => {
-    if (wishlist.includes(prod.id.toString())) {
+  // 🩷 Mostrar productos guardados en wishlist
+  todosLosProductos.forEach(prod => {
+    const prefijo = prod.prefijo || "";
+    const idPrefijado = prefijo + prod.id;
+
+    if (wishlist.includes(idPrefijado)) {
       const card = document.createElement("div");
       card.classList.add("card");
       card.innerHTML = `
@@ -16,21 +49,34 @@ async function cargarWishlist() {
         <p><strong>Colección:</strong> ${prod.coleccion}</p>
         <p class="precio">$${prod.precio}</p>
         <p>${prod.descripcion}</p>
-        <button class="delete-btn" data-id="${prod.id}">Eliminar</button>
+        <button class="delete-btn" data-id="${idPrefijado}">
+          <i class="fas fa-trash-alt"></i> Eliminar
+        </button>
       `;
       contenedor.appendChild(card);
     }
   });
 
-  // Agregar funcionalidad de eliminar
+  // 🚫 Si no hay coincidencias
+  if (contenedor.innerHTML.trim() === "") {
+    contenedor.innerHTML = "<p>No tienes productos en tu lista de deseos.</p>";
+  }
+
+  // 🗑️ Funcionalidad para eliminar
   document.querySelectorAll(".delete-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const id = btn.dataset.id;
       wishlist = wishlist.filter(pid => pid !== id);
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
-      btn.parentElement.remove(); // Elimina la card del DOM
+      btn.parentElement.remove();
+
+      // 🧹 Si ya no quedan productos, mostrar mensaje
+      if (document.querySelectorAll(".card").length === 0) {
+        contenedor.innerHTML = "<p>No tienes productos en tu lista de deseos.</p>";
+      }
     });
   });
 }
 
 cargarWishlist();
+

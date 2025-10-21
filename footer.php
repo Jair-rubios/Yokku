@@ -20,28 +20,45 @@
         <img src="imagenes/Logo YOKKU.png" />
         <ul>
           <li>
-            <h3>Resources</h3>
-            <a>Usage</a>
-            <a>Docs</a>
-            <a>Support</a>
-            <a>Hardware</a>
+  <h3>Contacto</h3>
+  <ul class="contact-info">
+    <li>
+      <a href="https://maps.app.goo.gl/DeYjjzRkLcWjGXmp8">
+        <i class="fa-solid fa-building"></i>
+        Oficinas Av del Charro 1576
+      </a>
+    </li>
+    <li>
+      <a href="tel:3328770435">
+        <i class="fa-solid fa-phone"></i>
+        (656) 28 77 04 35
+      </a>
+    </li>
+    <li>
+      <a href="mailto:ventas@ddtech.mx">
+        <i class="fa-solid fa-envelope"></i>
+        ventas@yokku.mx
+      </a>
+    </li>
+  </ul>
+</li>
+
+          <li>
+            <h3>Informacion</h3>
+            <a>Preguntas Frecuentes</a>
+            <a>Aviso de Privacidad</a>
+            <a>Terminos y Condiciones</a>
+            <a>Politica de Cambios Y devoluciones</a>
           </li>
           <li>
-            <h3>Pricing</h3>
-            <a>Overview</a>
-            <a>Flexible Data</a>
-            <a>High Volume</a>
-            <a>Enterprise</a>
-          </li>
-          <li>
-            <h3>Developers</h3>
-            <a>Forum</a>
+            <h3>Programadores</h3>
+            <a>Foro</a>
             <a>Projects</a>
             <a>Open Source</a>
             <a>GitHub</a>
           </li>
           <li>
-            <h3>Company</h3>
+            <h3>Compañia</h3>
             <a>About Us</a>
             <a>Blog</a>
             <a>Partnerships</a>

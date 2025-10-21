@@ -29,7 +29,7 @@
     </div>
     
     <div class="navbar-right">
-        <a href="#" class="desktop-link">Ubicación</a>
+        <a href="ubicacion.php" class="desktop-link">Ubicación</a>
         <a href="wishlist.php" class="icon-link">
             <i class="fas fa-heart heart-icon"></i>
         </a>

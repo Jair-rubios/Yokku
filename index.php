@@ -36,7 +36,7 @@
       <div class="carousel-track">
 
         <div class="carousel-slide">
-          <img src="imagenes/banner-1.webp" alt="Paisaje montañoso" />
+          <img src="imagenes/banner-stich.jpg" alt="Paisaje montañoso" />
           <div class="slide-content">
             <h2>Nueva colección</h2>
             <p>Escoge tu outfit fantástico</p>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="carousel-slide">
-          <img src="imagenes/banner-3.jpg" alt="Arquitectura moderna" />
+          <img src="imagenes/Banner-pochita.jpg" alt="Arquitectura moderna" />
           <div class="slide-content">
             <h2>Chainsaw Man</h2>
             <p>Vístete con tus personajes favoritos</p>
@@ -63,10 +63,10 @@
         </div>
 
         <div class="carousel-slide">
-          <img src="imagenes/capitan.png" alt="Gastronomía gourmet" />
+          <img src="imagenes/banner Star Wars.jpg" alt="Gastronomía gourmet" />
           <div class="slide-content">
-            <h2>Marvel Collection</h2>
-            <p>Vístete como un héroe</p>
+            <h2>Star Wars Collection</h2>
+            <p>Una Coleccion fuera de esta Galaxia</p>
           </div>
           <button class="buy-button">Comprar</button>
         </div>

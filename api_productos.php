@@ -66,6 +66,102 @@ $productos = [
         "coleccion" => "Toy Story",
         "precio" => 999.99,
         "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 9,
+        "imagen" => "imagenes/deadpool.png",
+        "nombre" => "Slinky Toy",
+        "coleccion" => "Toy Story",
+        "precio" => 999.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 10,
+        "imagen" => "imagenes/daredevil.png",
+        "nombre" => "Slinky Toy",
+        "coleccion" => "Toy Story",
+        "precio" => 999.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 11,
+        "imagen" => "imagenes/pochita.png",
+        "nombre" => "Slinky Toy",
+        "coleccion" => "Toy Story",
+        "precio" => 999.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 12,
+        "imagen" => "imagenes/angel.png",
+        "nombre" => "Slinky Toy",
+        "coleccion" => "Toy Story",
+        "precio" => 999.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 13,
+        "imagen" => "imagenes/Mulan.png",
+        "nombre" => "Mulan",
+        "coleccion" => "Princesas Disney",
+        "precio" => 199.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 14,
+        "imagen" => "imagenes/minnie_muertos.png",
+        "nombre" => "Minnie Sempasuchil",
+        "coleccion" => "Dia de Muertos",
+        "precio" => 599.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 15,
+        "imagen" => "imagenes/mickey_muertos.png",
+        "nombre" => "Mickey Altar",
+        "coleccion" => "Dia de Muertos",
+        "precio" => 699.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 16,
+        "imagen" => "imagenes/Jack_Skellington.png",
+        "nombre" => "Jack Skellington",
+        "coleccion" => "Halloween",
+        "precio" => 999.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 17,
+        "imagen" => "imagenes/Sid.png",
+        "nombre" => "Sid",
+        "coleccion" => "Toy Story",
+        "precio" => 399.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 18,
+        "imagen" => "imagenes/deadwolve.png",
+        "nombre" => "Amor de Hermanos",
+        "coleccion" => "Deadpool & Wolverine",
+        "precio" => 499.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" => 19,
+        "imagen" => "imagenes/meow_h.png",
+        "nombre" => "Gato Japones",
+        "coleccion" => "Japon Retro",
+        "precio" => 999.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
+    ],
+    [
+        "id" =>20,
+        "imagen" => "imagenes/meow.png",
+        "nombre" => "Gata Lunar",
+        "coleccion" => "Japon Retro",
+        "precio" => 999.99,
+        "descripcion" => "Tenis cómodos y ligeros para correr."
     ]
    
     ];

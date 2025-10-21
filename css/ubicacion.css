@@ -1,0 +1,125 @@
+ section.mapa {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Animación de fade-in */
+    .mapa-contenedor,
+    section.mapa h2,
+    section.mapa p,
+    .btn-direccion {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    .mapa-contenedor { animation-delay: 0.2s; }
+    section.mapa h2 { animation-delay: 0.5s; }
+    section.mapa p { animation-delay: 0.7s; }
+    .btn-direccion { animation-delay: 1s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Contenedor del iframe */
+    .mapa-contenedor {
+      position: relative;
+      width: 100%;
+      max-width: 600px;   /* ancho máximo escritorio */
+      height: 450px;      /* altura fija escritorio */
+      margin-bottom: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .mapa-contenedor iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Texto */
+    section.mapa h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    section.mapa p {
+      font-size: 16px;
+      color: #555;
+      max-width: 600px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    /* Botón moderno */
+    .btn-direccion {
+      display: inline-block;
+      background-color: #4a90e2;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-direccion::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255,255,255,0.3);
+      transform: skewX(-25deg);
+      transition: left 0.5s;
+    }
+
+    .btn-direccion:hover {
+      background-color: #357ab8;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-direccion:hover::after {
+      left: 125%;
+    }
+
+    /* Ajustes para pantallas pequeñas */
+    @media (max-width: 768px) {
+      section.mapa {
+        padding: 30px 10px;
+      }
+
+      section.mapa h2 {
+        font-size: 20px;
+      }
+
+      section.mapa p {
+        font-size: 14px;
+      }
+
+      .btn-direccion {
+        padding: 10px 20px;
+      }
+
+      /* Altura proporcional 4:3 para móviles */
+      .mapa-contenedor {
+        height: calc(100vw * 0.75);
+      }
+    }

@@ -1,7 +1,7 @@
 async function cargarProductos() {
   const contenedor = document.getElementById("productos");
   try {
-    const res = await fetch("api_mujer.php");
+    const res = await fetch("api_niñas.php");
     if (!res.ok) throw new Error("Error al cargar API");
     const productos = await res.json();
 
@@ -23,10 +23,10 @@ async function cargarProductos() {
       contenedor.appendChild(card);
     });
 
-    // 🎯 Aquí agregas el prefijo "M" antes de guardar el ID en el localStorage
+    // 👇 Prefijo "NA" para productos de niñas
     document.querySelectorAll(".wishlist-btn").forEach(btn => {
       btn.addEventListener("click", () => {
-        const id = "M" + btn.dataset.id; // 👈 prefijo "M" para productos de mujer
+        const id = "NA" + btn.dataset.id;
         let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
         if (!wishlist.includes(id)) {
@@ -44,4 +44,3 @@ async function cargarProductos() {
 }
 
 cargarProductos();
-

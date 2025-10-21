@@ -22,10 +22,11 @@
   <?php include 'nav.php';  ?>
   <h1>Productos</h1>
   <div class="productos-container" id="productos"></div>
-   
+   <!-- Footer -->
+  <?php include 'footer.php'; ?>
    <script src="JS/cards_hombre.js"></script>
-   <script src="JS/carrusel.js"></script>
-  </script>
+   
+  
 </body>
 </html>
 

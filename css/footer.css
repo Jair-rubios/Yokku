@@ -5,7 +5,7 @@
 footer {
   position: relative; /* antes estaba fixed */
   width: 100%;
-  background: #ffffff;
+  background: #0141f1;
   color: #f9f9f9;
   padding-bottom: 20px;
   margin-top: 40px; /* separa el footer del contenido */
@@ -42,6 +42,7 @@ footer article button {
   color: #f9f9f9;
   font-family: inherit;
   font-size: 16px;
+  border-style: none;
 }
 
 footer section {
@@ -119,6 +120,37 @@ section.bottom {
   text-align: center;
 }
 
-i{
-  width: 50px;
+footer a{
+  color: #f9f9f9;
+  border-style: none;
 }
+
+
+.contact-info {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-info li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgb(255 255 255 / 90%);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.contact-info li a:hover {
+  color: #ffffff;
+}
+
+.contact-info i {
+  font-size: 16px;
+  color: rgb(255 255 255 / 60%);
+}
+
