@@ -5,58 +5,58 @@ $productos = [
     [
         "id" => 1,
         "imagen" => "imagenes/tacos.webp",
-        "nombre" => "Pasele Joven",
+        "nombre" => "El Taquibara",
         "coleccion" => "Verano 2025",
         "precio" => 499.99,
-        "descripcion" => "Camisa ligera de algodón con estampado tropical."
+        "descripcion" => "Pasele guerita, cuantas camisas le damos porque hay de todas tallas y colores mi jovenaza"
     ],
     [
         "id" => 2,
         "imagen" => "imagenes/sacre.webp",
-        "nombre" => "Jeans Slim Fit",
+        "nombre" => "Johane Scrableu",
         "coleccion" => "Clásicos",
-        "precio" => 799.50,
-        "descripcion" => "Jeans denim azul oscuro con corte ajustado."
+        "precio" => 399.99,
+        "descripcion" => "Me comi un cuasun"
     ],
     [
         "id" => 3,
         "imagen" => "imagenes/four.webp",
         "nombre" => " 4 de Asada",
-        "coleccion" => "Edición Limitada",
-        "precio" => 1899.00,
-        "descripcion" => "Chaqueta de cuero genuino estilo biker."
+        "coleccion" => "Los 4 Fanatsticos",
+        "precio" => 249.00,
+        "descripcion" => "La Familia de Marvel a Llegado"
     ],
     [
         "id" => 4,
         "imagen" => "imagenes/TODO-H.webp",
         "nombre" => "El rey Taquero",
-        "coleccion" => "Sport",
-        "precio" => 999.99,
-        "descripcion" => "Tenis cómodos y ligeros para correr."
+        "coleccion" => "La taquiza",
+        "precio" => 199.99,
+        "descripcion" => "Me da una orden de Camisas para llevar"
     ],
     [
         "id" => 5,
         "imagen" => "imagenes/shooky.webp",
         "nombre" => "SHOOKY",
-        "coleccion" => "Sport",
-        "precio" => 999.99,
-        "descripcion" => "Tenis cómodos y ligeros para correr."
+        "coleccion" => "Verano BT21",
+        "precio" => 299.99,
+        "descripcion" => "Se parte de la Familia BT21"
     ]
     ,
     [
         "id" => 6,
         "imagen" => "imagenes/spider.webp",
         "nombre" => "Spiderman",
-        "coleccion" => "Sport",
-        "precio" => 999.99,
-        "descripcion" => "Tenis cómodos y ligeros para correr."
+        "coleccion" => "Spiderman comics",
+        "precio" => 349.99,
+        "descripcion" => "Vistete como el Super heroe favoritos de Marvel"
     ],
     [
         "id" => 7,
         "imagen" => "imagenes/pibesierra.webp",
-        "nombre" => "ChainSawmAN",
+        "nombre" => "Chain Saw MAN",
         "coleccion" => "Sport",
-        "precio" => 999.99,
+        "precio" => 499.99,
         "descripcion" => "Tenis cómodos y ligeros para correr."
     ],
     [

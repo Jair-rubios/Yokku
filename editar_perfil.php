@@ -2,7 +2,6 @@
 session_start();
 include "conexion.php";
 
-// Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit();
@@ -10,10 +9,9 @@ if (!isset($_SESSION['usuario'])) {
 
 $idUsuario = $_SESSION['usuario']['id'];
 
-// Consultar datos actuales del usuario
+// Consultar datos del usuario
 $sql = "SELECT Nombre, Celular, Correo, Foto_Imagen FROM Usuarios WHERE ID_Usuario = $idUsuario";
 $resultado = $conn->query($sql);
-
 if ($resultado && $resultado->num_rows === 1) {
     $usuario = $resultado->fetch_assoc();
 } else {
@@ -21,7 +19,8 @@ if ($resultado && $resultado->num_rows === 1) {
     exit();
 }
 
-// Actualizar datos si se envió el formulario
+$actualizado = false;
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nombre  = $conn->real_escape_string($_POST['nombre']);
     $celular = $conn->real_escape_string($_POST['celular']);
@@ -34,19 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $updatePassword = ", Contrasena = '$hash'";
     }
 
-    // Manejo de nueva imagen si se sube
     $updateFoto = "";
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
         $foto = $_FILES['foto'];
         $nombreFoto = uniqid() . "_" . basename($foto['name']);
         $rutaDestino = "uploads/" . $nombreFoto;
 
-        if (!is_dir("uploads")) {
-            mkdir("uploads", 0777, true);
-        }
+        if (!is_dir("uploads")) mkdir("uploads", 0777, true);
 
         if (move_uploaded_file($foto['tmp_name'], $rutaDestino)) {
-            // Borrar la foto anterior si existe
             if (!empty($usuario['Foto_Imagen']) && file_exists("uploads/" . $usuario['Foto_Imagen'])) {
                 unlink("uploads/" . $usuario['Foto_Imagen']);
             }
@@ -54,96 +49,188 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
-    // Actualizar en la base de datos
     $sqlUpdate = "UPDATE Usuarios 
-                  SET Nombre = '$nombre', Celular = '$celular', Correo = '$correo' 
+                  SET Nombre = '$nombre', Celular = '$celular', Correo = '$correo'
                       $updatePassword
                       $updateFoto
                   WHERE ID_Usuario = $idUsuario";
 
     if ($conn->query($sqlUpdate) === TRUE) {
-        // Actualizar la sesión para reflejar los cambios en el nav
         $_SESSION['usuario']['nombre'] = $nombre;
         $_SESSION['usuario']['correo'] = $correo;
-
-        if (!empty($updateFoto)) {
-            // Obtener el nuevo nombre de la foto (último insertado)
-            if (isset($nombreFoto)) {
-                $_SESSION['usuario']['foto_perfil'] = $nombreFoto;
-            }
-        }
-
-        echo "<script>alert('✅ Perfil actualizado correctamente'); window.location='editar_perfil.php';</script>";
-        exit();
+        if (!empty($updateFoto)) $_SESSION['usuario']['foto_perfil'] = $nombreFoto;
+        $actualizado = true;
     } else {
-        echo "❌ Error al actualizar: " . $conn->error;
+        $error = "❌ Error al actualizar: " . $conn->error;
     }
 }
-
 $conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Editar Perfil</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f3f3f3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            width: 320px;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        .foto-perfil {
-            display: block;
-            margin: 0 auto 15px;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ccc;
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Editar Perfil</title>
+<link rel="icon" type="image/x-icon" href="imagenes/Logo YOKKU.png">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: "Comfortaa", sans-serif;
+        background: linear-gradient(135deg, #e0f7ff, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    form {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        width: 340px;
+        text-align: center;
+        position: relative;
+    }
+
+    h2 {
+        color: #00b7ff;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        text-align: left;
+        margin: 5px 0;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        border-color: #00b7ff;
+        box-shadow: 0 0 6px #00b7ff60;
+        outline: none;
+    }
+
+    .foto-perfil {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 3px solid #00b7ff60;
+    }
+
+    button {
+        background: #00b7ff;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    button:hover {
+        background: #0095d6;
+        box-shadow: 0 0 10px #00b7ff70;
+    }
+
+    .error {
+        color: red;
+        margin-bottom: 10px;
+    }
+
+    /* Barra de fuerza de contraseña */
+    .password-strength {
+        height: 8px;
+        border-radius: 4px;
+        background: #ccc;
+        margin-top: -5px;
+        margin-bottom: 5px;
+        overflow: hidden;
+    }
+
+    .password-strength span {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: red;
+        transition: width 0.4s, background 0.4s;
+    }
+
+    #strength-text {
+        text-align: right;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    /* Animación de éxito */
+    .success-box {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        color: #00b7ff;
+    }
+
+    .checkmark {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 3;
+        stroke: #00b7ff;
+        stroke-miterlimit: 10;
+        box-shadow: inset 0px 0px 0px #00b7ff;
+        animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        margin: 10px auto;
+    }
+
+    .checkmark__circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: #00b7ff;
+        fill: none;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark__check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+
+    @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+    @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+    @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 30px #00b7ff; } }
+</style>
 </head>
 <body>
 
-<form action="editar_perfil.php" method="POST" enctype="multipart/form-data">
+<form id="perfilForm" method="POST" enctype="multipart/form-data">
     <h2>Editar Perfil</h2>
 
     <img src="uploads/<?php echo htmlspecialchars($usuario['Foto_Imagen']); ?>" 
          alt="Foto de perfil" class="foto-perfil">
+
+    <?php if (!empty($error)): ?>
+        <div class="error"><?= $error ?></div>
+    <?php endif; ?>
 
     <label>Nombre:</label>
     <input type="text" name="nombre" value="<?php echo htmlspecialchars($usuario['Nombre']); ?>" required>
@@ -155,7 +242,9 @@ $conn->close();
     <input type="email" name="correo" value="<?php echo htmlspecialchars($usuario['Correo']); ?>" required>
 
     <label>Nueva contraseña (opcional):</label>
-    <input type="password" name="contrasena" placeholder="Dejar vacío si no se cambia">
+    <input type="password" name="contrasena" id="password" placeholder="Dejar vacío si no se cambia">
+    <div class="password-strength"><span id="strength-bar"></span></div>
+    <div id="strength-text"></div>
 
     <label>Foto de perfil (opcional):</label>
     <input type="file" name="foto" accept="image/*">
@@ -163,8 +252,75 @@ $conn->close();
     <button type="submit">Actualizar Perfil</button>
 </form>
 
+<div class="success-box" id="successBox">
+    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+        <path class="checkmark__check" fill="none" d="M14 27l7 7 16-16"/>
+    </svg>
+    <h3>¡Perfil actualizado!</h3>
+</div>
+
+<script>
+const password = document.getElementById("password");
+const strengthBar = document.getElementById("strength-bar");
+const strengthText = document.getElementById("strength-text");
+
+password.addEventListener("input", () => {
+    const val = password.value;
+    let strength = 0;
+    if (val.match(/[a-z]+/)) strength += 1;
+    if (val.match(/[A-Z]+/)) strength += 1;
+    if (val.match(/[0-9]+/)) strength += 1;
+    if (val.length >= 8) strength += 1;
+
+    switch(strength) {
+        case 0:
+            strengthBar.style.width = "0%";
+            strengthText.textContent = "";
+            break;
+        case 1:
+            strengthBar.style.width = "25%";
+            strengthBar.style.background = "red";
+            strengthText.textContent = "Débil";
+            strengthText.style.color = "red";
+            break;
+        case 2:
+            strengthBar.style.width = "50%";
+            strengthBar.style.background = "orange";
+            strengthText.textContent = "Media";
+            strengthText.style.color = "orange";
+            break;
+        case 3:
+            strengthBar.style.width = "75%";
+            strengthBar.style.background = "#ffcc00";
+            strengthText.textContent = "Fuerte";
+            strengthText.style.color = "#ffcc00";
+            break;
+        case 4:
+            strengthBar.style.width = "100%";
+            strengthBar.style.background = "#00b7ff";
+            strengthText.textContent = "Excelente";
+            strengthText.style.color = "#00b7ff";
+            break;
+    }
+});
+</script>
+
+<?php if ($actualizado): ?>
+<script>
+    document.querySelector("form").style.display = "none";
+    const success = document.getElementById("successBox");
+    success.style.display = "flex";
+    setTimeout(() => {
+        window.location.href = "index.php";
+    }, 2000);
+</script>
+<?php endif; ?>
+
 </body>
 </html>
+
+
 
 
 

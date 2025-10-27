@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YOKKO STORE</title>
-
+  <link rel="icon" type="image/x-icon" href="imagenes/Logo YOKKU.png">
   <!-- Estilos locales -->
   <link rel="stylesheet" href="css/universal.css" />
   <link rel="stylesheet" href="css/navbar.css" />

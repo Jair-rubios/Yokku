@@ -15,7 +15,7 @@ $productos = [
         "imagen" => "mujer/mang.webp",
         "nombre" => "MANG",
          "coleccion" => "Verano BT21",
-        "precio" => 799.50,
+        "precio" => 499.99,
         "descripcion" => "Jeans denim azul oscuro con corte ajustado."
     ],
     [
@@ -23,7 +23,7 @@ $productos = [
         "imagen" => "mujer/chimmy.webp",
         "nombre" => "CHIMMY",
          "coleccion" => "Verano BT21",
-        "precio" => 1899.00,
+        "precio" => 199.00,
         "descripcion" => "Chaqueta de cuero genuino estilo biker."
     ],
     [
@@ -101,7 +101,7 @@ $productos = [
         "nombre" => "El Taquibara",
         "coleccion" => "Capibara",
         "precio" => 999.99,
-        "descripcion" => "Pasele guerito, cuantas camisas le damos porque hay de todas tallas y colores mi jovenazo"
+        "descripcion" => "Pasele guerita, cuantas camisas le damos porque hay de todas tallas y colores mi jovenaza"
     ],
 
     [

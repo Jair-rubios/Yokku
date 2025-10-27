@@ -3,7 +3,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Productos</title>
+  <title>Mujer Yokku</title>
+  <link rel="icon" type="image/x-icon" href="imagenes/Logo YOKKU.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/universal.css">
   <link rel="stylesheet" href="css/navbar.css">

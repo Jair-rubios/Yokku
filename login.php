@@ -2,11 +2,12 @@
 session_start();
 include "conexion.php";
 
+$login_exitoso = false;
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $correo     = $conn->real_escape_string($_POST['correo']);
     $contrasena = $_POST['contrasena'];
 
-    // Buscar usuario por correo
     $sql = "SELECT ID_Usuario, Nombre, Correo, Contrasena, Foto_Imagen 
             FROM Usuarios 
             WHERE Correo = '$correo' 
@@ -16,88 +17,178 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($resultado && $resultado->num_rows === 1) {
         $usuario = $resultado->fetch_assoc();
 
-        // Verificar contraseña
         if (password_verify($contrasena, $usuario['Contrasena'])) {
-            // Iniciar sesión
             $_SESSION['usuario'] = [
                 'id'           => $usuario['ID_Usuario'],
                 'nombre'       => $usuario['Nombre'],
                 'correo'       => $usuario['Correo'],
                 'foto_perfil'  => $usuario['Foto_Imagen']
             ];
-
-            header("Location: index.php");
-            exit();
+            $login_exitoso = true;
         } else {
             $error = "❌ Contraseña incorrecta.";
         }
     } else {
         $error = "⚠️ No se encontró una cuenta con ese correo.";
     }
-}
 
-$conn->close();
+    $conn->close();
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Iniciar Sesión</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f3f3f3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            width: 300px;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        .error {
-            color: red;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .link {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .link a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Iniciar Sesión</title>
+<link rel="icon" type="image/x-icon" href="imagenes/Logo YOKKU.png">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: "Comfortaa", sans-serif;
+        background: linear-gradient(135deg, #e0f7ff, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    form {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        width: 320px;
+        text-align: center;
+        position: relative;
+    }
+
+    h2 {
+        color: #00b7ff;
+        margin-bottom: 20px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        border-color: #00b7ff;
+        box-shadow: 0 0 6px #00b7ff60;
+        outline: none;
+    }
+
+    button {
+        background: #00b7ff;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    button:hover {
+        background: #0095d6;
+        box-shadow: 0 0 10px #00b7ff70;
+    }
+
+    .error {
+        color: red;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .link {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .link a {
+        color: #00b7ff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .link a:hover {
+        text-decoration: underline;
+    }
+
+    /* Spinner de carga */
+    .spinner {
+        display: none;
+        margin: 15px auto;
+        width: 40px;
+        height: 40px;
+        border: 4px solid #00b7ff50;
+        border-top: 4px solid #00b7ff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Animación de éxito */
+    .success-animation {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: #00b7ff;
+    }
+
+    .checkmark {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 3;
+        stroke: #00b7ff;
+        stroke-miterlimit: 10;
+        box-shadow: inset 0px 0px 0px #00b7ff;
+        animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        margin: 10px auto;
+    }
+
+    .checkmark__circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: #00b7ff;
+        fill: none;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark__check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+
+    @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+    @keyframes scale {
+        0%, 100% { transform: none; }
+        50% { transform: scale3d(1.1, 1.1, 1); }
+    }
+    @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 30px #00b7ff; } }
+</style>
 </head>
 <body>
 
-<form action="login.php" method="POST">
+<form id="loginForm" method="POST">
     <h2>Iniciar Sesión</h2>
 
     <?php if (!empty($error)): ?>
@@ -108,12 +199,45 @@ $conn->close();
     <input type="password" name="contrasena" placeholder="Contraseña" required>
 
     <button type="submit">Entrar</button>
+    <div class="spinner" id="spinner"></div>
 
     <div class="link">
         ¿No tienes cuenta? <a href="registro.php">Regístrate aquí</a>
     </div>
 </form>
 
+<!-- Animación de éxito -->
+<div class="success-animation" id="successAnimation">
+    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+        <path class="checkmark__check" fill="none" d="M14 27l7 7 16-16"/>
+    </svg>
+    <h3>¡Inicio de sesión exitoso!</h3>
+</div>
+
+<script>
+    const form = document.getElementById("loginForm");
+    const spinner = document.getElementById("spinner");
+    const success = document.getElementById("successAnimation");
+
+    form.addEventListener("submit", (e) => {
+        spinner.style.display = "block";
+    });
+</script>
+
+<?php if ($login_exitoso): ?>
+<script>
+    document.querySelector("form").style.display = "none";
+    spinner.style.display = "none";
+    success.style.display = "flex";
+
+    setTimeout(() => {
+        window.location.href = "index.php";
+    }, 2000);
+</script>
+<?php endif; ?>
+
 </body>
 </html>
+
 
