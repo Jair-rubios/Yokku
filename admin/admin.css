@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+
+:root{
+  --accent: #00b7ff;
+  --bg: #f3f7fb;
+  --panel: #ffffff;
+  --muted: #6b7280;
+}
+
+*{box-sizing:border-box}
+body{
+  font-family: "Comfortaa", sans-serif;
+  background: linear-gradient(180deg,#e9f6ff,#ffffff);
+  margin:0;
+  min-height:100vh;
+  color:#0f172a;
+}
+
+/* Layout */
+.admin-shell{
+  display:flex;
+  min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+  width:220px;
+  background:var(--panel);
+  border-right:1px solid #e6eef8;
+  padding:20px;
+  box-shadow: 0 4px 18px rgba(3, 102, 214, 0.03);
+}
+.brand{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:18px;
+}
+.brand img{ width:36px; height:36px; border-radius:8px; }
+.brand h3{ margin:0; color:var(--accent); font-size:18px; }
+
+/* Sidebar links */
+.nav-link{
+  display:block;
+  padding:10px 12px;
+  margin:8px 0;
+  border-radius:8px;
+  color:#0f172a;
+  text-decoration:none;
+  transition: all .18s ease;
+}
+.nav-link:hover{ background: rgba(0,183,255,0.08); transform: translateX(4px); color: var(--accent); }
+.nav-link.active{ background: linear-gradient(90deg,var(--accent),#00d0ff); color:#fff; box-shadow: 0 6px 20px rgba(0,183,255,0.12); }
+
+/* Main */
+.main {
+  flex:1;
+  padding:28px;
+}
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+.header h1{ margin:0; font-size:20px; color:var(--accent); }
+
+/* Card / table */
+.card{
+  background:var(--panel);
+  padding:18px;
+  border-radius:12px;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.04);
+}
+
+/* Table */
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+.table th, .table td{
+  padding:12px 10px;
+  border-bottom:1px solid #eef6ff;
+  text-align:left;
+  vertical-align:middle;
+  font-size:14px;
+}
+.table th{ color:var(--muted); font-weight:600; font-size:13px; }
+.table img { width:70px; height:70px; object-fit:cover; border-radius:8px; }
+
+/* Buttons */
+.btn{
+  display:inline-block; padding:8px 12px; border-radius:8px; text-decoration:none; color:#fff; cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn-primary{ background:var(--accent); box-shadow: 0 6px 18px rgba(0,183,255,0.12); }
+.btn-primary:hover{ transform: translateY(-3px); }
+.btn-warning{ background:#ffb020; }
+.btn-danger{ background:#ff4d4f; }
+
+/* Form styles */
+.form-row{ display:flex; gap:12px; margin-bottom:12px; }
+.form-row .col{ flex:1; }
+label{ display:block; margin-bottom:6px; font-weight:600; color:#334155; font-size:14px; }
+input[type="text"], input[type="number"], textarea, select {
+  width:100%; padding:10px; border:1px solid #e6eef8; border-radius:8px; outline:none;
+}
+textarea{ min-height:120px; resize:vertical; }
+
+/* Small helpers */
+.actions{ display:flex; gap:8px; align-items:center; }
+.topbar-actions{ display:flex; gap:8px; align-items:center; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 183, 255, 0.15);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all .35s ease;
+  z-index: 9999;
+}
+.toast.show { transform: translateY(0); opacity:1; }
+
+/* responsive */
+@media (max-width:900px){
+  .sidebar{ display:none; }
+  .admin-shell{ flex-direction:column; }
+  .main{ padding:16px; }
+}
+
+
+
+/* Estilo de la tabla para asignar roles*/
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.tabla-admin th, .tabla-admin td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.tabla-admin th {
+  background: #333;
+  color: #fff;
+}
+
+.mini-foto {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.btn-asignar, .btn-quitar {
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-asignar {
+  background: #28a745;
+}
+
+.btn-asignar:hover {
+  background: #218838;
+}
+
+.btn-quitar {
+  background: #dc3545;
+}
+
+.btn-quitar:hover {
+  background: #c82333;
+}
+

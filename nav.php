@@ -19,7 +19,7 @@
         <a href="mujer.php">Mujer</a>
         <a href="#">Niño</a>
         <a href="#">Niña</a>
-        <a href="#">Licencias</a>
+        <a href="admin/panel_admin.php">Licencias</a>
     </div>
     
     <div class="navbar-center">

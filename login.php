@@ -5,10 +5,13 @@ include "conexion.php";
 $login_exitoso = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Es mucho mejor usar sentencias preparadas (mysqli_stmt) para seguridad,
+    // pero por ahora mantendremos el código lo más parecido al tuyo.
     $correo     = $conn->real_escape_string($_POST['correo']);
     $contrasena = $_POST['contrasena'];
 
-    $sql = "SELECT ID_Usuario, Nombre, Correo, Contrasena, Foto_Imagen 
+    // 1. La consulta ahora INCLUYE la columna 'Rol'
+    $sql = "SELECT ID_Usuario, Nombre, Correo, Contrasena, Foto_Imagen, Rol  
             FROM Usuarios 
             WHERE Correo = '$correo' 
             LIMIT 1";
@@ -18,13 +21,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $usuario = $resultado->fetch_assoc();
 
         if (password_verify($contrasena, $usuario['Contrasena'])) {
+            
+            // 2. Se incluye la clave 'rol' en la sesión (¡en minúsculas!)
             $_SESSION['usuario'] = [
-                'id'           => $usuario['ID_Usuario'],
-                'nombre'       => $usuario['Nombre'],
-                'correo'       => $usuario['Correo'],
-                'foto_perfil'  => $usuario['Foto_Imagen']
+                'id'            => $usuario['ID_Usuario'],
+                'nombre'        => $usuario['Nombre'],
+                'correo'        => $usuario['Correo'],
+                'foto_perfil'   => $usuario['Foto_Imagen'],
+                'rol'           => $usuario['Rol'] // CLAVE: Aquí se guarda el rol
             ];
-            $login_exitoso = true;
+            
+            // 3. Redirección condicional inmediata por PHP
+            if ($_SESSION['usuario']['rol'] === 'admin') {
+                // Si es admin, va al panel de administración (ajusta la ruta si es necesario)
+                header("Location: admin/panel_admin.php");
+            } else {
+                // Si es usuario normal, va al index
+                header("Location: index.php");
+            }
+            exit(); // ¡CRUCIAL! Detiene la ejecución para que se aplique la redirección
+            
         } else {
             $error = "❌ Contraseña incorrecta.";
         }

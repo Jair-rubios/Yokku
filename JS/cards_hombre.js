@@ -1,7 +1,7 @@
 async function cargarProductos() {
   const contenedor = document.getElementById("productos");
   try {
-    const res = await fetch("api_hombres.php");
+    const res = await fetch('api_hombres.php');
     if (!res.ok) throw new Error("Error al cargar API");
     const productos = await res.json();
 
