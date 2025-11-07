@@ -37,6 +37,16 @@
   .card p { font-size: 14px; color: #555; }
   .precio { font-weight: bold; color: #2a7; margin: 10px 0; }
 
+    .wishlistVacia{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    height: 80vh;
+  }
+  .wishlistVacia p{
+    text-align: center;
+  }
   .delete-btn {
     position: absolute;
     top: 10px;
