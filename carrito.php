@@ -2,10 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Lista de Deseos</title>
+  <title>Carrito</title>
    <link rel="stylesheet" href="css/universal.css">
-   <link rel="stylesheet" href="css/wishlist.css">
-   <link rel="stylesheet" href="css/cards.css">
+   <link rel="stylesheet" href="css/carrito.css">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link
       rel="stylesheet"
@@ -20,11 +19,15 @@
 </head>
 <body>
   <?php include 'nav.php';  ?>
-  <h1>Mi Lista de Deseos</h1>
-  <div class="wishlist-container" id="wishlist"></div>
+  <h1>Carrito</h1>
+  <div class="cart-container" id="cart"></div>
 
-     <!-- Footer -->
+  <div class="carrito-total" id="total"></div>
+
+  <div class="carrito-pagar" id="pagar"></div>
+
+  <!-- Footer -->
   <?php include 'footer.php'; ?>
-  <script src="JS/wishlist.js"></script>
+  <script src="JS/carrito.js"></script>
 </body>
 </html>

@@ -17,10 +17,14 @@
           <button class="wishlist-btn" data-id="${prod.id}">
             <i class="fas fa-heart"></i>
           </button>
+          <button class="cart-btn" data-id="${prod.id}">
+            <i class="fas fa-shopping-cart"></i>
+          </button>
         `;
         contenedor.appendChild(card);
       });
 
+      //Boton agregar a lista de deseos
       document.querySelectorAll(".wishlist-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.id;
@@ -34,6 +38,26 @@
           }
         });
       });
-    }
 
-    cargarProductos();
+      //Boton agregar al carrito
+      document.querySelectorAll(".cart-btn").forEach(btn => { 
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.id;
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+          const productoExistente = cart.find(p => p.id === id);
+
+          if (productoExistente) {
+             productoExistente.cantidad += 1;
+         } else {
+             cart.push({ id: id, cantidad: 1 });
+         }
+       localStorage.setItem("cart", JSON.stringify(cart));
+        btn.classList.add("added");
+
+      window.location.href = "carrito.php";
+      });
+    });
+}
+
+cargarProductos();

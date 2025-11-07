@@ -69,3 +69,16 @@
     .wishlist-btn:hover {
       color: red;
     }
+
+    .cart-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #aaa;
+      transition: color 0.3s;
+    }
+
+    .cart-btn:hover {
+      color: red;
+    }

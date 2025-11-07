@@ -33,7 +33,7 @@
         <a href="wishlist.php" class="icon-link">
             <i class="fas fa-heart heart-icon"></i>
         </a>
-        <a href="#" class="icon-link">
+        <a href="carrito.php" class="icon-link">
             <i class="fas fa-shopping-cart"></i>
         </a>
 
