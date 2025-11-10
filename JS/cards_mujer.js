@@ -19,6 +19,9 @@ async function cargarProductos() {
         <button class="wishlist-btn" data-id="${prod.id}">
           <i class="fas fa-heart"></i>
         </button>
+        <button class="cart-btn" data-id="${prod.id}">
+            <i class="fas fa-shopping-cart"></i>
+        </button>
       `;
       contenedor.appendChild(card);
     });

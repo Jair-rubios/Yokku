@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-     <footer>
+    <footer>
       <article>
         <h2>Unete a Yokku</h2>
         <button>
@@ -18,31 +18,28 @@
 
       <section class="top">
         <img src="imagenes/Logo YOKKU.png" />
-        <ul>
+        <h3>Contacto</h3>
+        <ul class="contact-info">
           <li>
-  <h3>Contacto</h3>
-  <ul class="contact-info">
-    <li>
-      <a href="https://maps.app.goo.gl/DeYjjzRkLcWjGXmp8">
-        <i class="fa-solid fa-building"></i>
-        Oficinas Av del Charro 1576
-      </a>
-    </li>
-    <li>
-      <a href="tel:3328770435">
-        <i class="fa-solid fa-phone"></i>
-        (656) 28 77 04 35
-      </a>
-    </li>
-    <li>
-      <a href="mailto:ventas@ddtech.mx">
-        <i class="fa-solid fa-envelope"></i>
-        ventas@yokku.mx
-      </a>
-    </li>
-  </ul>
-</li>
-
+            <a href="https://maps.app.goo.gl/DeYjjzRkLcWjGXmp8">
+              <i class="fa-solid fa-building"></i>
+              Oficinas Av del Charro 1576
+            </a>
+          </li>
+          <li>
+            <a href="tel:3328770435">
+              <i class="fa-solid fa-phone"></i>
+              (656) 28 77 04 35
+            </a>
+          </li>
+          <li>
+            <a href="mailto:ventas@ddtech.mx">
+              <i class="fa-solid fa-envelope"></i>
+              ventas@yokku.mx
+            </a>
+          </li>
+        </ul>
+        <ul>
           <li>
             <h3>Informacion</h3>
             <a>Preguntas Frecuentes</a>
@@ -65,26 +62,23 @@
             <a>Careers</a>
           </li>
           <li>
-  <h3>Redes Sociales</h3>
-  <div class="social-links">
-    <a href="https://facebook.com" target="_blank" aria-label="Facebook">
-      <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a href="https://twitter.com" target="_blank" aria-label="X (Twitter)">
-      <i class="fab fa-x-twitter"></i>
-    </a>
-    <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
-      <i class="fab fa-tiktok"></i>
-    </a>
-  </div>
-</li>
-
-        </ul>
+            <h3>Redes Sociales</h3>
+              <div class="social-links">
+                <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" aria-label="X (Twitter)">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
+                  <i class="fab fa-tiktok"></i>
+                </a>
+              </div>
+          </li>
       </section>
-
       <section class="bottom">© 2025 UACJ</section>
     </footer>
 
