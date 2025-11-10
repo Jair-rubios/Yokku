@@ -61,11 +61,6 @@ async function cargarWishlist() {
     }
   });
 
-  //Si no hay coincidencias
-  if (contenedor.innerHTML.trim() === "") {
-    contenedor.innerHTML = "<p>No tienes productos en tu lista de deseos.</p>";
-  }
-
   //Funcionalidad para eliminar
   document.querySelectorAll(".delete-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -73,11 +68,7 @@ async function cargarWishlist() {
       wishlist = wishlist.filter(pid => pid !== id);
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
       btn.parentElement.remove();
-
-      //Si ya no quedan productos, mostrar mensaje
-      if (document.querySelectorAll(".card").length === 0) {
-        contenedor.innerHTML = "<p>No tienes productos en tu lista de deseos.</p>";
-      }
+      cargarWishlist();
     });
   });
 }

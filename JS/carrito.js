@@ -2,6 +2,7 @@ async function cargarCarrito() {
   const contenedor = document.getElementById("cart");
   const contenedorTotal = document.getElementById("total");
   const contenedorPagar = document.getElementById("pagar");
+  const contenedorMsg = document.getElementById("msg-container");
 
   contenedor.innerHTML = "<p>Cargando tu carrito...</p>";
 
@@ -12,6 +13,7 @@ async function cargarCarrito() {
     contenedor.className = "carritoVacio";
     contenedorTotal.innerHTML = "";
     contenedorPagar.innerHTML = "";
+    contenedorMsg.innerHTML = "";
     return;
   }
 
@@ -130,9 +132,101 @@ function actualizarCantidad(id, nuevaCantidad) {
 
 contenedorPagar.innerHTML = `
     <div class="total">
-      <button class="btnPagar" type="button">Pagar</button>
+      <button class="btnPagar" id="btnPagar" type="button">Pagar</button>
     </div>
   `;
 }
+
+//Activar el fondo oscuro
+const overlay = document.getElementById("overlay");
+const tarjeta = document.getElementById("tarjeta");
+
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "btnPagar") {
+    overlay.classList.add("activo");
+  }
+});
+
+overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('activo');//Desactiva el fondo oscuro cuando se hace clic directo en el fondo (es decir, fuera del formulario)
+    tarjeta.classList.remove('activo');
+  });
+
+//Activar formulario de tarjeta
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "btnPagar") {
+    tarjeta.classList.add("activo");
+  }
+});
+
+//Validar formulario
+const campos = [
+  { input: document.getElementById("numTarjeta"), min: 16, tipo: "numero"},
+  { input: document.getElementById("nombreTarjeta"), min: 1, tipo: "letras"},
+  { input: document.getElementById("mesVenci"), min: 1, tipo: "numero"},
+  { input: document.getElementById("anoVenci"), min: 4, tipo: "numero"},
+  { input: document.getElementById("CVVTarjeta"), min: 3, tipo: "numero"},
+];
+let verificarLabel = document.getElementById("verificarLabel");
+let hayError = false;
+
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "btn-procederPago") {
+
+    campos.forEach(({ input, min, tipo }) => {
+      const valor = input.value.trim();
+
+      // Validar longitud mínima
+      if (valor.length < min) {
+        input.classList.add("verificar");
+        hayError = true;
+        return;
+      }
+
+      // Validar tipo de dato
+      let regex;
+      if (tipo === "numero") regex = /^[0-9]+$/;
+      else if (tipo === "letras") regex = /^[a-zA-Z\s]+$/; 
+
+      if (!regex.test(valor)) {
+        input.classList.add("verificar");
+        hayError = true;
+      } else {
+        input.classList.remove("verificar");
+      }
+    });
+
+    if (hayError) {
+      verificarLabel.classList.add("activo");
+    } else {
+      verificarLabel.classList.remove("activo");
+    }
+  }
+
+  if (hayError) return;
+});
+
+//Pedido realizado (mensaje)
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "btn-procederPago") {
+    if(!hayError)
+    {
+      function mensajeTemporal(texto) {
+      const msg = document.createElement("div");
+      msg.classList.add("msgPedido");
+      msg.textContent = texto;
+      document.body.appendChild(msg);
+      
+      setTimeout(() => {
+        msg.remove();
+        location.reload(); 
+      }, 2000);
+      }
+
+      if (!hayError) {
+        mensajeTemporal("¡El pedido se realizó con éxito ✓!");
+      }
+    }
+}});
 
 cargarCarrito();
