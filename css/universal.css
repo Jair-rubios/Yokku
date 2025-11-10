@@ -3,3 +3,8 @@
   font-optical-sizing: auto;
   font-style: normal;
 }
+/* variables.css */
+:root {
+  --primary-color: #ef3f42;
+  --secondary-color: #64abdd;
+}

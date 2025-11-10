@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($conn->query($sql) === TRUE) {
         $registrado = true;
     } else {
-        $error = "❌ Error al registrar: " . $conn->error;
+        $error = "Error al registrar: " . $conn->error;
     }
 }
 

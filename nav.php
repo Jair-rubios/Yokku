@@ -17,8 +17,8 @@
     <div class="navbar-left mobile-nav-links">
         <a href="hombres.php">Hombre</a>
         <a href="mujer.php">Mujer</a>
-        <a href="#">Niño</a>
-        <a href="#">Niña</a>
+        <a href="niños.php">Niño</a>
+        <a href="niñas.php">Niña</a>
         <a href="admin/panel_admin.php">Licencias</a>
     </div>
     
@@ -33,7 +33,7 @@
         <a href="wishlist.php" class="icon-link">
             <i class="fas fa-heart heart-icon"></i>
         </a>
-        <a href="#" class="icon-link">
+        <a href="carrito.php" class="icon-link">
             <i class="fas fa-shopping-cart"></i>
         </a>
 

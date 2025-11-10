@@ -1,0 +1,154 @@
+   .cart-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .cart-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cart-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    position: relative;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card h3 { margin: 10px 0 5px; }
+  .card p { font-size: 14px; color: #555; }
+  .precio { font-weight: bold; color: #2a7; margin: 10px 0; }
+  
+  .carritoVacio{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    height: 70vh;
+  }
+
+  .carritoVacio p{
+    text-align: center;
+  }
+  .delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: #ff4d4d;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+  }
+
+  .delete-btn:hover {
+    background: #ff1a1a;
+  }
+
+  .cantidad {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.numCantidad{
+  width: 60px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 6px 0;
+  -moz-appearance: textfield; /*Eliminar flechas por defecto del input en FireFox*/
+}
+/*Eliminar flechas por defecto del input en otros navegadores*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btnCantidad-mas, .btnCantidad-menos {
+  background-color: var(--secondary-color);
+  border: none;
+  color: white;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btnCantidad-mas:hover, .btnCantidad-menos:hover {
+  background-color: #1b4662;
+}
+
+.carrito-total {
+  width: 100%;
+  max-width: 1200px;
+  margin: 10px auto;   /* margen superior e inferior */
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.total h3 {
+  color: #222;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.carrito-pagar {
+  width: 100%;
+  max-width: 1200px;
+  margin: 10px auto;   /* margen superior e inferior */
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnPagar{
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  padding: 20px 100px;
+  width: auto;
+  height: auto;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btnPagar:hover{
+  background-color: rgb(103, 39, 39);
+}

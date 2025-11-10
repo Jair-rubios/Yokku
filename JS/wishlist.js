@@ -5,11 +5,12 @@ async function cargarWishlist() {
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
   if (wishlist.length === 0) {
-    contenedor.innerHTML = "<p>No tienes productos en tu lista de deseos.</p>";
+    contenedor.innerHTML = "<p>Tu <b>Lista de deseos</b> está vacía</p>";
+    contenedor.className = "wishlistVacia";
     return;
   }
 
-  // 👇 APIs a consultar
+  //APIs a consultar
   const apis = [
     { prefijo: "", url: "api_productos.php" },
     { prefijo: "M", url: "api_mujer.php" },
@@ -20,7 +21,7 @@ async function cargarWishlist() {
 
   let todosLosProductos = [];
 
-  // 🔄 Cargar todas las APIs
+  //Cargar todas las APIs
   for (const { prefijo, url } of apis) {
     try {
       const res = await fetch(url);
@@ -35,7 +36,7 @@ async function cargarWishlist() {
 
   contenedor.innerHTML = "";
 
-  // 🩷 Mostrar productos guardados en wishlist
+  //Mostrar productos guardados en wishlist
   todosLosProductos.forEach(prod => {
     const prefijo = prod.prefijo || "";
     const idPrefijado = prefijo + prod.id;
@@ -52,17 +53,20 @@ async function cargarWishlist() {
         <button class="delete-btn" data-id="${idPrefijado}">
           <i class="fas fa-trash-alt"></i> Eliminar
         </button>
+        <button class="cart-btn" data-id="${prod.id}">
+            <i class="fas fa-shopping-cart"></i>
+        </button>
       `;
       contenedor.appendChild(card);
     }
   });
 
-  // 🚫 Si no hay coincidencias
+  //Si no hay coincidencias
   if (contenedor.innerHTML.trim() === "") {
     contenedor.innerHTML = "<p>No tienes productos en tu lista de deseos.</p>";
   }
 
-  // 🗑️ Funcionalidad para eliminar
+  //Funcionalidad para eliminar
   document.querySelectorAll(".delete-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const id = btn.dataset.id;
@@ -70,7 +74,7 @@ async function cargarWishlist() {
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
       btn.parentElement.remove();
 
-      // 🧹 Si ya no quedan productos, mostrar mensaje
+      //Si ya no quedan productos, mostrar mensaje
       if (document.querySelectorAll(".card").length === 0) {
         contenedor.innerHTML = "<p>No tienes productos en tu lista de deseos.</p>";
       }
